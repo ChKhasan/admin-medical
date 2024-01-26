@@ -69,7 +69,7 @@ export default {
       baseUrl: process.env.BASE_URL,
       columnsFaq: [
         {
-          title: "ID",
+          title: "№",
           dataIndex: "indexId",
           slots: { title: "customTitle" },
           scopedSlots: { customRender: "indexId" },

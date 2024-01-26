@@ -1,7 +1,10 @@
 <template lang="html">
   <div class="clients">
     <div class="container_xl app-container main-table">
-      <h5 class="title">Клиенты</h5>
+      <div class="d-flex justify-content-between">
+        <h5 class="title">Клиенты</h5>
+        <a-button @click="logout">Выход</a-button>
+      </div>
       <div class="card_block main-table px-4 py-4">
         <a-table
           :columns="columnsClients"
@@ -171,6 +174,11 @@ export default {
     this.checkAllActions("orders");
   },
   methods: {
+    logout() {
+      localStorage.removeItem("auth_token");
+      localStorage.removeItem("refresh_token");
+      this.$router.push("/admin/login");
+    },
     moment,
     confirm(id) {
       this.__DELETE_USER(id.tg_id);
@@ -194,7 +202,7 @@ export default {
       try {
         const data = await this.$store.dispatch("fetchClients/deleteClients", id);
         this.notification("success", "Success", "Клиент успешно удален.");
-        this.__GET_ORDERS()
+        this.__GET_ORDERS();
       } catch (e) {
         if (e.response.status == 401) {
           this.__REFRESH_TOKEN();

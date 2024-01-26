@@ -49,7 +49,7 @@
           </span>
         </transition>
       </div>
-      <div class="login_btn d-flex justify-content-center" @click="login">Continue</div>
+      <div class="login_btn d-flex justify-content-center" :class="{disabled: loading}" @click="login">Continue</div>
     </div>
   </div>
 </template>
@@ -62,6 +62,7 @@ export default {
   mixins: [status, global],
   data() {
     return {
+      loading: false,
       showError: false,
       rules: {
         username: [
@@ -81,6 +82,7 @@ export default {
     handleClose() {},
     async __AUTH(data) {
       try {
+        this.loading = true;
         const res = await this.$store.dispatch("fetchAuth/auth", data);
         console.log(res);
         localStorage.setItem("auth_token", res.access);
@@ -89,6 +91,8 @@ export default {
         this.$router.push("/");
       } catch (e) {
         this.showError = true;
+      } finally {
+        this.loading = false;
       }
     },
     login() {
@@ -100,6 +104,10 @@ export default {
 </script>
 <style lang="css">
 @import "../../assets/css/pages/login.css";
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }
