@@ -13,7 +13,7 @@ import {
   Table,
   // Upload,
   Modal,
-  // Popconfirm,
+  Popconfirm,
   // Radio,
   //   Icon,
   Spin,
@@ -58,7 +58,7 @@ Vue.use(Button);
 Vue.use(Table);
 // Vue.use(Upload);
 Vue.use(Modal);
-// Vue.use(Popconfirm);
+Vue.use(Popconfirm);
 // Vue.use(Radio);
 // Vue.use(Icon);
 // Vue.use(Input);

@@ -67,13 +67,13 @@ export default {
     },
     async changePageSizeGlobal(e, link, data) {
       this.current = 1;
-      if (this.$route.query.per_page != e) {
+      if (this.$route.query.page_size != e) {
         await this.$router.replace({
           path: link,
           query: {
             ...this.$route.query,
             page: this.current,
-            per_page: e,
+            page_size: e,
           },
         });
         this[data]();
@@ -88,7 +88,7 @@ export default {
           query: {
             ...this.$route.query,
             page: val,
-            per_page: this.params.pageSize,
+            page_size: this.params.pageSize,
           },
         });
         this[dataFunc]();
@@ -99,20 +99,20 @@ export default {
     async getFirstData(dataFunc) {
       if (
         !Object.keys(this.$route.query).includes("page") ||
-        !Object.keys(this.$route.query).includes("per_page")
+        !Object.keys(this.$route.query).includes("page_size")
       ) {
         await this.$router.replace({
           path: this.$route.path,
           query: {
             ...this.$route.query,
             page: this.params.page,
-            per_page: this.params.pageSize,
+            page_size: this.params.pageSize,
           },
         });
       }
       this[dataFunc]();
       this.current = Number(this.$route.query.page);
-      this.params.pageSize = Number(this.$route.query.per_page);
+      this.params.pageSize = Number(this.$route.query.page_size);
     },
     async __DELETE_GLOBAL(id, link, message, data) {
       try {

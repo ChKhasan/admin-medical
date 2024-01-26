@@ -13,8 +13,8 @@
                 @keyup.enter="login"
                 type="text"
                 class="input"
-                placeholder="email"
-                v-model="form.email"
+                placeholder="username"
+                v-model="form.username"
               />
             </a-form-model-item>
             <!-- <input type="text" class="input" v-model="form.username" /> -->
@@ -64,13 +64,15 @@ export default {
     return {
       showError: false,
       rules: {
-        email: [{ required: true, message: "This field is required", trigger: "change" }],
+        username: [
+          { required: true, message: "This field is required", trigger: "change" },
+        ],
         password: [
           { required: true, message: "This field is required", trigger: "change" },
         ],
       },
       form: {
-        email: "",
+        username: "",
         password: "",
       },
     };
@@ -79,18 +81,19 @@ export default {
     handleClose() {},
     async __AUTH(data) {
       try {
-        // const res = await this.$store.dispatch("fetchAuth/auth", data);
-        // console.log(res);
-        // localStorage.setItem("auth_token", res.content.accessToken);
-        // this.$store.commit("logIn");
-        // this.$router.push("/");
+        const res = await this.$store.dispatch("fetchAuth/auth", data);
+        console.log(res);
+        localStorage.setItem("auth_token", res.access);
+        localStorage.setItem("refresh_token", res.refresh);
+        this.$store.commit("logIn");
+        this.$router.push("/");
       } catch (e) {
         this.showError = true;
       }
     },
     login() {
       this.$router.push("/");
-      // this.__AUTH(this.form);
+      this.__AUTH(this.form);
     },
   },
 };

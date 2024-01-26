@@ -22,14 +22,22 @@ export default {
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
-
+  axios: {
+    credentials: false,
+    init(axios) {
+      axios.defaults.withCredentials = true;
+    },
+    baseURL: process.env.BASE_URL,
+  },
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
+    "@nuxtjs/axios",
     "bootstrap-vue/nuxt",
+    "@nuxtjs/dotenv",
   ],
   ssr: false,
   // Build Configuration: https://go.nuxtjs.dev/config-build
