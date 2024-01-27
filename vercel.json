@@ -1,7 +1,7 @@
 {
     "routes": [
       {
-        "src": "(.*)",
+        "src": "http://admin-medical-rose.vercel.app(.*)",
         "status": 301,
         "headers": {
           "Location": "http://admin-medical-rose.vercel.app//$1"
