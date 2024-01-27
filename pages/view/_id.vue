@@ -3,8 +3,10 @@
     <div class="container_xl app-container main-table">
       <div class="d-flex justify-content-between">
         <h5 class="title">Информация о клиенте</h5>
+      
         <a-button @click="$router.push('/')">Назад</a-button>
       </div>
+      <h5 class="title">Клиент: {{ user?.tg_name }}</h5>
       <div class="card_block main-table px-4 py-4">
         <a-table
           :columns="columnsFaq"
@@ -41,7 +43,7 @@
             <span v-else>{{ text.text }}</span>
           </span>
           <span slot="image" slot-scope="text">
-            <img v-if="text != null" class="table-image" :src="text" />
+            <img v-if="text != null" class="table-image" :src="`${baseUrl}${text}`" />
             <img
               v-else
               class="table-image"
@@ -66,6 +68,7 @@ export default {
 
   data() {
     return {
+      user: {},
       baseUrl: process.env.BASE_URL,
       columnsFaq: [
         {
@@ -150,7 +153,7 @@ export default {
           indexId: index + 1,
         };
       });
-      console.log(data);
+      this.user = data?.user
       this.loading = false;
       // const pageIndex = this.indexPage(
       //   data?.orders?.current_page,

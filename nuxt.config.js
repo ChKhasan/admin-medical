@@ -27,7 +27,7 @@ export default {
     init(axios) {
       axios.defaults.withCredentials = true;
     },
-    baseURL: process.env.BASE_URL,
+    baseURL: "http://178.128.154.43:9000",
   },
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [],
